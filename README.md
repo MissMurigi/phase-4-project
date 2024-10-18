@@ -6,13 +6,6 @@
 - There is a Flask application where you will be working on the backend functionality.
     - The database models are defined, and your task will involve creating routes to interact with these models.
     - There are tests included to validate your code. - - You can run them using pytest.
-    - Postman collection (medical-reminder.postman_collection.json) is provided to assist you in testing the API routes.
-
-## You can interact with your API using:gi
-
-- Postman to make requests and validate responses.
-- pytest to run automated tests.
-- Optionally, connect this API to a frontend app to visualize the user interactions.
 
 ## Features of the API:
 
@@ -20,51 +13,96 @@
 - Set up reminders for users to take their medications.
 - Track medication dosage and frequency.
 
+
+## Technologies Used
+Backend (Flask):
+
+    Flask: Lightweight Python web framework for building RESTful APIs.
+    Flask-SQLAlchemy: ORM for database interaction.
+    Flask-JWT-Extended: Token-based authentication for securing API routes.
+    SQLite/PostgreSQL: Database to store user data and reminders.
+    Alembic: Database migrations.
+    Flask-CORS: Cross-Origin Resource Sharing to connect Flask API with React frontend.
+
+Frontend (React):
+
+    React: JavaScript library for building interactive user interfaces.
+    React Router: For navigating between different pages in the app.
+    CSS: For styling and responsive design.
+
 ## Setup
 
-- To set up the project locally, ensure you're in the root folder of the project and follow these steps:
+Prerequisites
 
-    - Install dependencies:
+    Python 3.8+
+    Node.js 14+
+    npm (Node Package Manager)
 
-- bash
+## Installation
+## Backend Setup (Flask)
 
-- pipenv install
-- pipenv shell
+    Clone the repository:
 
-    - Run the Flask API on localhost:5000:
+    bash
 
-- bash
+- git clone https://github.com/stevedev-ops/phase-4-project.git
+- cd stevedev-ops/phase-4-project
 
-- python app.py
-
-- Database Setup
-
-- Before you begin using the API, you need to set up the database and run migrations.
-
-    - Initialize the database:
+- Set up a virtual environment and install dependencies:
 
 - bash
 
-## flask db init
-## flask db migrate -m "Initial migration"
-## flask db upgrade
+- python3 -m venv venv
+- source venv/bin/activate  # On Windows: venv\Scripts\activate
+- pip install -r requirements.txt
 
-    - Seed the database with sample data:
+- Set up environment variables (create a .env file in the server directory):
 
 - bash
 
-- python seed.py
+- touch .env
 
-    - You can modify the seed data or add more based on the requirements.
+- Add the following configuration to .env:
 
-## Models
-- The file server/models.py defines the model classes without relationships. Use the following commands to create the initial database app.db:
+bash
 
-## export FLASK_APP=server/app.py
-## flask db init
-## flask db upgrade head
+- DATABASE_URI=sqlite:///reminders.db  # or use a PostgreSQL URI
+- SECRET_KEY=your_secret_key
+- JWT_SECRET_KEY=your_jwt_secret_key
 
-Now you can implement the relationships as shown in the ER Diagram:
+Initialize the database:
+
+bash
+
+flask db init
+flask db migrate
+flask db upgrade
+
+Start the Flask server:
+
+bash
+
+    flask run
+
+## Frontend Setup (React)
+
+    Navigate to the frontend directory:
+
+    bash
+
+cd ../client
+
+Install the dependencies:
+
+bash
+
+npm install
+
+Start the React development server:
+
+bash
+
+npm start
 
 
 ## The relationships between these models are:
@@ -72,25 +110,6 @@ Now you can implement the relationships as shown in the ER Diagram:
   - A User can have multiple Medications and Reminders.
   - A Medication belongs to a User and can have multiple Reminders.
   - A Reminder is associated with one or more - Medications through MedicationReminder.
-
-Set serialization rules to limit the recursion depth.
-
-Run the migrations and seed the database:
-
-## flask db revision --autogenerate -m 'message'
-## flask db upgrade head
-## python server/seed.py
-
-If you aren't able to get the provided seed file working, you are welcome to generate your own seed data to test the application.
-
-
-## This API uses the following data models:
-
-    - User: Tracks users and their contact details.
-    - Medication: Tracks the medications users need to take.
-    - Reminder: Stores reminder settings for medications.
-    - MedicationReminder: Links a reminder to a specific medication and tracks its dosage and frequency.
-
 
 ## Validations
 
@@ -235,6 +254,5 @@ json
 
 - bash
 
-## pytest
 
-- Ensure all tests pass to validate that your API behaves as expected.
+
